@@ -4,7 +4,7 @@ Bora descobrir como criar um campo de Confirmação de Email em um simples formu
 
 Você deve estar pensando agora: Isso é muito simples, eu sei resolver de "olhos fechados".
 
-Pode ser que sim, mas eu tenho a certeza que muitos iniciantes em programação iriam queimar a cabeça para resolver esse problema. Então, caso esse seja o seu caso, espero que esse artigo te ajude de alguma forma.
+Pode ser que sim, mas será mesmo? Vamos estudar esse caso mostrando algumas possiveis soluções que muitos de nós poderiamos chegar e ver o porque delas nem sempre serem as mais eficientes.
 
 Nesse exemplo estamos utilizando como Stack o ASP.NET Core, em um projeto com o padrão arquitetural MVC. Usaremos um cenário simples para não termos distrações e focar no que é o essencial.
 
@@ -73,7 +73,7 @@ Essa simples alteração pode gerar muita dor de cabeça para quem está começa
 >
 > Faz sentido termos uma coluna de confirmação na minha tabela do Banco de Dados?
 
-Muitas perguntas surgem na cabeça do iniciante em programação, deixando-o tenso em como resolver esse problema.
+Muitas perguntas podem surgir na cabeça do desenvolvedor, deixando-o tenso em como resolver esse problema.
 
 Ou em alguns casos o Desenvolvedor olha essa situação e já realiza a seguinte alteração: Criar uma nova propriedade na Model Cliente.
 
@@ -87,9 +87,13 @@ public class Cliente
 }
 ```
 
+Ao fazermos isso na classe Cliente, essa alteração será refletida no Banco de Dados, criando uma nova Coluna "ConfirmaEmail" (realizando uma nova migration + update no banco de dados).
+
 Agora paramos para pensar. Faz sentido criarmos essa nova propriedade na entidade Cliente?
 
-Ao fazermos isso na classe Cliente, essa alteração será refletida no Banco de Dados, criando uma nova Coluna "ConfirmaEmail". E claro que isso não é o ideal.
+Nossas classes de dominio devem representar algo do mundo real para nosso código e nesse caso temos um Cliente. Se pararmos para pensar, "Confirmação de Email" não é uma característica ou propriedade de um Cliente, é apenas um campo para checar se o email foi digitado sem erros, na camada de Apresentação.
+
+Sabendo disso, percebemos que isso não é o ideal e que essa nova propriedade "ConfirmaEmail" não deve estar na Classe Cliente.
 
 > Tá, mas o que eu faço então????
 
@@ -162,7 +166,7 @@ public IActionResult Create(ClienteCadastroViewModel clienteVM)
 }
 ```
 
-A action Create, nesse exemplo, é responsável por gravar no Bando de Dados o que foi recebido como argumento (Obs.: Não é o ideal a Controller acessar o Banco de Dados. Estou fazendo dessa forma para simplificar o código).
+A action Create, nesse exemplo, é responsável por gravar no Bando de Dados o que foi recebido como argumento (Obs.: Não é responsabilidade da Controller ter acesso ao Banco de Dados. O ideal seria termos uma classe reponsável para acessar o BD, como uma DAO ou Repository, por exemplo. Estou fazendo dessa forma para simplificar o código).
 
 O Banco espera receber uma Model de Cliente, porém estamos recebendo uma ViewModel "ClienteCadastroViewModel". Temos que fazer uma "conversão" da ViewModel recebida para uma Model de Cliente.
 
@@ -188,9 +192,11 @@ Para ver o código completo da ClienteController…LINK
 
 ## Conclusão
 
-No inicio da nossa trajetória como desenvolvedores nos deparamos com algumas situações que são corriqueiras e simples para os "devs" mais experientes, mas para quem está iniciando não é tão simples assim. Isso devido a não termos experiencia em como "codar direito" e a falta de conhecimento dos tão falados "patterns" de desenvolvimento.
+Apesar de nosso exemplo ser relativamente simples, podemos perceber a ocorrencia desse problema em varios cenários e projetos.
 
-Nesse primeiro artigo foi visto o Padrão ViewModel. Um "pattern" utilizado em diversos projetos, mas que confunde muito quem está iniciando.
+Casos como esse, onde um probelma aparece repetidamente em varios projetos, provavelmente podem ser revolvidos com os Design Patterns. Com o tempo e prática nós iremos aprender cada vez mais padrões para facilitar o desenvolvimento, tornando nossos códigos organizados, limpos e com menos complexidade.
+
+Nesse primeiro artigo foi visto o Padrão ViewModel. Um "pattern" utilizado em diversos projetos, mas que confunde muitos desenvolvedores.
 
 Foi utilizado um cenário bem simples para passar o conceito, mas vale lembrar que não restringimos o uso das ViewModels apenas para casos como o que falamos nesse artigo.
 
