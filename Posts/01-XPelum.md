@@ -22,7 +22,7 @@ O Template do projeto é ASP.NET Core Web Application (MVC). Já iniciei o proje
 
 ## ISSUE 1 - Tela Inicial - Home da XPelum
 
-Esse projeto inicialmente está divido em fases. A primeira implementação é criar a Home Page da XPelum seguindo como exemplo a página incial do Site da XP Investimentos (<https://www.xpi.com.br>).
+Esse projeto inicialmente está divido em 6 fases. A primeira implementação é criar a Home Page da XPelum seguindo como exemplo a página incial do Site da XP Investimentos (<https://www.xpi.com.br>).
 
 A única observação para essa demanda é que teremos uma área de informação que será dinâmica - A área de Assessorias. Ou seja, essa parte não terá um html fixo. Irá alterar-se de acordo com a quantidade de Tipos de Assessorias existentes na Corretora.
 
@@ -217,4 +217,6 @@ namespace XPelum.Controllers
 ```
 
 ### Criando a entidade Assessoria
+
+Como solicitado, teremos á area de Assessoria sendo Dinâmica. Pensando nisso, comecei a criar uma Model para representar os tipos de Assessoria.
 
