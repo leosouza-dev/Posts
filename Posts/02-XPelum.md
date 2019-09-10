@@ -130,8 +130,30 @@ Arquivo Startup.cs, método "Configure":
 
 ---
 
-//Colocar as Partial View que foram criadas para mostrar os links de register e login
+Além de todas essas alterações, o Identity utiliza uma Partial View para exibir no menu de navegação os links de "Register" e "login".
 
-//colocar a view que usa as partial view
+Esse arquivo é possivel ser localizado dentro do diretório "Views/Shared/_LoginPartial.cshtml".
+
+![Conhecendo aplicação - _LoginPartial_diretório](imagens/02-xpelum/conhecendo-aplicacao-06.png)
+
+![Conhecendo aplicação - _LoginPartial](imagens/02-xpelum/conhecendo-aplicacao-07.png)
+
+Essa Partial View utiliza o Identity (SignInManager e UserManager) realizando uma lógica verificando se o usuário está logado ou não.
+
+ Caso não esteja, será mostrado os Links de "Register" e "link". Após o Usuário logar-se, no lugar dos links anteriores, será exibido o nome do usuário e um link para "Logout".
+
+Menu de navegação sem o usuário de autenticar:
+![Conhecendo aplicação - Menu sem autenticação](imagens/02-xpelum/conhecendo-aplicacao-08.png)
+
+Menu de navegação com o usuário autenticado:
+![Conhecendo aplicação - Menu autenticado](imagens/02-xpelum/conhecendo-aplicacao-09.png)
+
+Um ponto importante que temos que mencionar é onde essa "_LoginPartial" está sendo referenciada.
+
+Ela é chamada na Partial view de Layout - "_Layout.cshtml", dentro da Tag "Nav". Ela encontra-se dentro de "Views/Shared".
+
+![Conhecendo aplicação - _Layout](imagens/02-xpelum/conhecendo-aplicacao-10.png)
 
 //mostrar o banco de dados e tabelas que foram criadas
+
+//antes de rodarmos fazer update do BD ou aplicar a migration no registro de usuário
