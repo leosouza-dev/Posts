@@ -84,11 +84,12 @@ E clicando no Link "Login" seremos redirecionados para seguinte tela:
 
 ![Rodando aplicação - tela de Login](imagens/02-xpelum/rodando-aplicacao-03.png)
 
----
 
 Note que não foi necessário criar nenhuma tela de Login e Registro para termos a Feature pronta. Isso nos auxilia muito tanto na velocidade de desenvolvimento como manutenção, pois é um Framework pronto que os Desenvolvedores .NET estão acostumados e familiarizados. Além de ser uma biblioteca com maturidade e segura.
 
 Depois de darmos uma passada rápida na execução do Aplicação, vamos ver o que foi criado no nosso projeto. Focaremos no Identity.
+
+---
 
 ## Conhecendo o Projeto com o Identity
 
@@ -108,3 +109,29 @@ Os outros arquivos - "_ViewStart" apenas aponta para usar o Layout padrão do pr
 
 ---
 
+Além dessas pastas e arquivos criados, o identity alterou alguns outros arquivos: 
+
+- No arquivo de configuração "appsettings.json" ele criou a ConnectionStrings padrão.
+
+- Na classe "Startup.cs" no método "ConfigureServices" é adicionado o DbContext apontando para a ConnectionString e adicionado o iedntity. Já no metodo "Configure" é adicionado a Autenticação.
+
+
+Arquivo appsettings.json:
+
+![Conhecendo aplicação - appsettings](imagens/02-xpelum/conhecendo-aplicacao-03.png)
+
+Arquivo Startup.cs, método "ConfigureServices":
+
+![Conhecendo aplicação - ConfigureServices](imagens/02-xpelum/conhecendo-aplicacao-04.png)
+
+Arquivo Startup.cs, método "Configure":
+
+![Conhecendo aplicação - ConfigureServices](imagens/02-xpelum/conhecendo-aplicacao-05.png)
+
+---
+
+//Colocar as Partial View que foram criadas para mostrar os links de register e login
+
+//colocar a view que usa as partial view
+
+//mostrar o banco de dados e tabelas que foram criadas
