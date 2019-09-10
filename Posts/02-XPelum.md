@@ -93,6 +93,8 @@ Depois de darmos uma passada rápida na execução do Aplicação, vamos ver o q
 
 ## Conhecendo o Projeto com o Identity
 
+### Arquivos novos
+
 Ao criarmos um projeto com o Identity é possivel observar a criação de algumas pastas na arvore do projeto: "Areas" e "Data".
 
 Dentro da pasta "Areas" temos uma pasta "Identity", que possue uma pasta "Pages", que por sua vez possue um arquivo "_ViewStart.cshtml".
@@ -109,12 +111,13 @@ Os outros arquivos - "_ViewStart" apenas aponta para usar o Layout padrão do pr
 
 ---
 
-Além dessas pastas e arquivos criados, o identity alterou alguns outros arquivos: 
+### Appsettings.json e Startup.cs
+
+Além dessas pastas e arquivos criados, o identity alterou alguns outros arquivos:
 
 - No arquivo de configuração "appsettings.json" ele criou a ConnectionStrings padrão.
 
 - Na classe "Startup.cs" no método "ConfigureServices" é adicionado o DbContext apontando para a ConnectionString e adicionado o iedntity. Já no metodo "Configure" é adicionado a Autenticação.
-
 
 Arquivo appsettings.json:
 
@@ -130,6 +133,8 @@ Arquivo Startup.cs, método "Configure":
 
 ---
 
+### Partial View
+
 Além de todas essas alterações, o Identity utiliza uma Partial View para exibir no menu de navegação os links de "Register" e "login".
 
 Esse arquivo é possivel ser localizado dentro do diretório "Views/Shared/_LoginPartial.cshtml".
@@ -142,10 +147,10 @@ Essa Partial View utiliza o Identity (SignInManager e UserManager) realizando um
 
  Caso não esteja, será mostrado os Links de "Register" e "link". Após o Usuário logar-se, no lugar dos links anteriores, será exibido o nome do usuário e um link para "Logout".
 
-Menu de navegação sem o usuário de autenticar:
+- Menu de navegação sem o usuário de autenticar:
 ![Conhecendo aplicação - Menu sem autenticação](imagens/02-xpelum/conhecendo-aplicacao-08.png)
 
-Menu de navegação com o usuário autenticado:
+- Menu de navegação com o usuário autenticado:
 ![Conhecendo aplicação - Menu autenticado](imagens/02-xpelum/conhecendo-aplicacao-09.png)
 
 Um ponto importante que temos que mencionar é onde essa "_LoginPartial" está sendo referenciada.
@@ -153,6 +158,10 @@ Um ponto importante que temos que mencionar é onde essa "_LoginPartial" está s
 Ela é chamada na Partial view de Layout - "_Layout.cshtml", dentro da Tag "Nav". Ela encontra-se dentro de "Views/Shared".
 
 ![Conhecendo aplicação - _Layout](imagens/02-xpelum/conhecendo-aplicacao-10.png)
+
+---
+
+### Banco de Dados
 
 //mostrar o banco de dados e tabelas que foram criadas
 
