@@ -234,4 +234,14 @@ Já o usuário "leonardo.89@uol.com.br" terá total acesso a View Privacy por te
 
 ---
 
-## Cade as Views do Identity?
+## Cadê as Views do Identity?
+
+A partir do ASP.NET Core 2.1 as telas do Identity são do tipo "Razor Class Libraries". Ou sejá, diferentemente das versões anteriores, não são criados as models e views no projeto.
+
+- Mas minhas telas não poderão ser traduzidas ou alteradas?
+
+É possivel sim customizar as telas padrões do Identity.
+
+Falaremos agora como adicionar o código-fonte das Razor Class Libraries para conseguirmos modifica-las.
+
+---
