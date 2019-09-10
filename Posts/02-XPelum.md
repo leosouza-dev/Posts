@@ -91,3 +91,20 @@ Note que não foi necessário criar nenhuma tela de Login e Registro para termos
 Depois de darmos uma passada rápida na execução do Aplicação, vamos ver o que foi criado no nosso projeto. Focaremos no Identity.
 
 ## Conhecendo o Projeto com o Identity
+
+Ao criarmos um projeto com o Identity é possivel observar a criação de algumas pastas na arvore do projeto: "Areas" e "Data".
+
+Dentro da pasta "Areas" temos uma pasta "Identity", que possue uma pasta "Pages", que por sua vez possue um arquivo "_ViewStart.cshtml".
+
+Na pasta "Data" possuimos um arquivo "ApplicationDbContext.cs" que é o Contexto para a persistencia de dados com o Banco de Dados e uma pasta "Migration" com uma migration inicial para criação das tabelas.
+
+![Conhecendo aplicação - Arvore do Projeto](imagens/02-xpelum/conhecendo-aplicacao-01.png)
+
+A classe "ApplicationDbContext.cs" é bem simples. Ela herda de "IdentityDbContext" e possue um construtor passando o DbContextOptions (configurações) para a classe base. 
+
+![Conhecendo aplicação - ApplicationDbContext](imagens/02-xpelum/conhecendo-aplicacao-02.png)
+
+Os outros arquivos - "_ViewStart" apenas aponta para usar o Layout padrão do projeto e as migrations possuem um esquema de criação do Banco de Dados com as tabelas necessárias para o Iedntity.
+
+---
+
