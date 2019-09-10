@@ -177,3 +177,19 @@ Existem diversas colunas e tabelas criadas por padrão pelo Identity, que muitas
 ---
 
 ## Facilidades com o Identity
+
+Nossa aplicação, do jeito que está agora, possue todas as Views (Home e Privacy) "abertas" para todos acessarem, inclusive por usuários não autenticados.
+
+Supondo que surgiu uma nova demanda - A view Privacy será aberta apenas por usuários autenticados.
+
+Com o Identity, a implementação dessa Feature é muito simples. basta irmos na HomeController e incluirmos uma anotação [Authorize] sobre a action "Privacy".
+
+![Mudando a aplicação - Authorize](imagens/02-xpelum/alterando-aplicacao-01.png)
+
+Apenas com a inclusão dessa linha de código, quando um usuário não autenticado clicar no link "Privacy" será redirecionado para a View de Login. Um usuário autenticado possue acesso a essa View.
+
+---
+
+- Tá legal, mas e se for necessários termos grupos de Usuários - Ex. Admin e User?
+
+Para trabalharmos com grupos de usuários podemos usar as "Roles".
