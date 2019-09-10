@@ -58,13 +58,36 @@ Ainda na mesma tela vamos mudar a opção de autenticação. Ao clicarmos em "ch
 
 ![Template](imagens/02-xpelum/novo-projeto-05.png)
 
---
+---
 
 Após essa configuração inicial, nosso projeto está criado:
 
 ![Template](imagens/02-xpelum/novo-projeto-06.png)
 
+---
 
 ## Rodando o Projeto com o Identity
+
+Ao executarmos o projeto, teremos a seguinte tela inicial:
+
+![Rodando aplicação - tela inicial](imagens/02-xpelum/rodando-aplicacao-01.png)
+
+Note que no menu de Navegação temos os links para "Home", "Privacy", "Register" e "Login". Sendo que esses dois últimos foram criados pelo "Identity".
+
+---
+
+Clicando no Link "Register" seremos redirecionados para seguinte tela:
+
+![Rodando aplicação - tela de registro](imagens/02-xpelum/rodando-aplicacao-02.png)
+
+E clicando no Link "Login" seremos redirecionados para seguinte tela:
+
+![Rodando aplicação - tela de Login](imagens/02-xpelum/rodando-aplicacao-03.png)
+
+---
+
+Note que não foi necessário criar nenhuma tela de Login e Registro para termos a Feature pronta. Isso nos auxilia muito tanto na velocidade de desenvolvimento como manutenção, pois é um Framework pronto que os Desenvolvedores .NET estão acostumados e familiarizados. Além de ser uma biblioteca com maturidade e segura.
+
+Depois de darmos uma passada rápida na execução do Aplicação, vamos ver o que foi criado no nosso projeto. Focaremos no Identity.
 
 ## Conhecendo o Projeto com o Identity
