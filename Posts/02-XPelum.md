@@ -178,6 +178,8 @@ Existem diversas colunas e tabelas criadas por padrão pelo Identity, que muitas
 
 ## Facilidades com o Identity
 
+### Autenticação
+
 Nossa aplicação, do jeito que está agora, possue todas as Views (Home e Privacy) "abertas" para todos acessarem, inclusive por usuários não autenticados.
 
 Supondo que surgiu uma nova demanda - A view Privacy será aberta apenas por usuários autenticados.
@@ -190,6 +192,46 @@ Apenas com a inclusão dessa linha de código, quando um usuário não autentica
 
 ---
 
-- Tá legal, mas e se for necessários termos grupos de Usuários - Ex. Admin e User?
+### Autorização
 
-Para trabalharmos com grupos de usuários podemos usar as "Roles".
+- Tá legal, mas e se for necessários termos grupos/funções de Usuários - Ex. Admin e User?
+
+Para trabalharmos com grupos/funções de usuários podemos usar as "Roles".
+
+Agora nossa nova demanda é que para o Usuário conseguir acessar a View Privacy, ele precisa ser "Admin" no sistema.
+
+Para entendermos melhor os próximos passos, vamos olhar as tabelas do nosso Banco de Dados.
+
+Na tabela "AspNetUser" é onde estão localizados nossos usuários. Atualmente temos dois usuários registrados: "leonardo.89@uol.com.br" e "ze@gmail.com".
+
+![Banco de Dados - User](imagens/02-xpelum/bd-roles-01.png)
+
+Na tabela "AspNetRoles" é onde estão as nossas Roles. Atualmente apenas com uma: "Admin".
+
+![Banco de Dados - Roles](imagens/02-xpelum/bd-roles-02.png)
+
+E na tabela "AspNetUserRoles" é onde fazemos a associação de usuários com as suas respectivas Roles (pode ser mais de uma). Atualmente temos uma associação do usuário "leonardo.89@uol.com.br" com a Rode "Admin" através de seus Id's.
+
+![Banco de Dados - User-Roles](imagens/02-xpelum/bd-roles-03.png)
+
+Na nossa action "Privacy" preciamos informar que elá terá acesso apenas para usuários autenticados e com a Role Admin. Para isso basta acrescentarmos na anotação a Role desejada.
+
+![Mudando a aplicação - Autenicação com role](imagens/02-xpelum/alterando-aplicacao-02.png)
+
+E por fim, mas não menos importante, devemos adicionar o middleware na classe startup, no método "ConfigureServices"
+
+![Mudando a aplicação - Adicionando com role](imagens/02-xpelum/alterando-aplicacao-03.png)
+
+---
+
+Ao executarmos a aplicação e o usuário "ze@gmail.com" estiver logado e tentar acessar a View Privacy, ele será redirecionado para uma tela de "Acesso Negado", pois ele não possui a Role "Admin".
+
+![Rodando Aplicação - Acesso Negado](imagens/02-xpelum/rodando-aplicacao-04.png)
+
+Já o usuário "leonardo.89@uol.com.br" terá total acesso a View Privacy por ter a Role "Admin".
+
+![Rodando Aplicação - Privacy](imagens/02-xpelum/rodando-aplicacao-05.png)
+
+---
+
+## Cade as Views do Identity?
