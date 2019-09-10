@@ -8,7 +8,7 @@ Pensando assim, supondo que somos desenvolvedores de software focado em .NET, e 
 
 Muitas vezes pode surgir a ideia de criarmos nossa Feature de Registro e Login na "mão". Ou seja, nós mesmos implementarmos criarmos todo o fluxo de registro e login de um usuário.
 
-Mas será se essa seria a melhor escolha? 
+Mas será se essa seria a melhor escolha?
 
 ---
 
@@ -163,6 +163,17 @@ Ela é chamada na Partial view de Layout - "_Layout.cshtml", dentro da Tag "Nav"
 
 ### Banco de Dados
 
-//mostrar o banco de dados e tabelas que foram criadas
+Como falamos anteriormente, o ASP.NET Core Identity cria uma Migration inicial para a criação das tabelas padrões.
+Ao executarmos o comando "update-database" será criado o banco de dados com as tabelas necessárias.
 
-//antes de rodarmos fazer update do BD ou aplicar a migration no registro de usuário
+![Conhecendo aplicação - BD](imagens/02-xpelum/conhecendo-aplicacao-11.png)
+
+Existem várias tabelas no Banco de Dados criado a partir do Identity, mas por hora vamos focar na tabela "AspNetUsers". Nela que é persistido os nossos usuários.
+
+![Conhecendo aplicação - AspNetUsers](imagens/02-xpelum/conhecendo-aplicacao-12.png)
+
+Existem diversas colunas e tabelas criadas por padrão pelo Identity, que muitas vezes não são utilizadas por uma aplicação mais simples. Mais para frente iremos falar como Customizar o Identity.
+
+---
+
+## Facilidades com o Identity
