@@ -296,3 +296,35 @@ Obs: Nós também podemos criar nossas prórpias Razor Class Libraries e reutili
 
 #### Analisando a Register.cshtml
 
+A primeira coisa que notamos na Arvore do projeto é que possuimos dois arquivos relacionados a UI de Register - "Register.cshtml" que é Razor page e "Register.cshtml.cs" que é o código C#, que é basicamente a Modelo de dados da Page.
+
+![Register](imagens/02-xpelum/register-01.png)
+
+##### Register.cshtml
+
+O código da Register.cshtml assemelha-se muito aos arquivos de exibição Razor que trabalhamos nos Projetos MVC. O que diferencia é a diretiva "@page".
+
+A diretiva @page transforma o arquivo em uma ação do MVC, o que significa que ele trata as solicitações sem passar por um controlador.
+
+É possvel notar a presença da diretiva "@model RegisterModel".
+
+RegisterModel é criado dentro do arquivo "Register.cshtml.cs".
+
+![Register](imagens/02-xpelum/register-02.png)
+
+##### Register.cshtml.cs
+
+O arquivo Register.cshtml.cs é classe modelo da Razor Page (é a classe PageModel, que nesse caso é "RegisterModel"). Por convenção possui o mesmo nome da Razor Page.
+
+Analisando a classe RegisterModel notamos que é filha de PageModel e recebe por injeção de dependencia o "SignInManager", "UserManager", "ILogger" e "IEmailSender".
+
+Possui duas propriedades publicas - "Input" do tipo InputModel e "ReturnUrl" do tipo string.
+
+Existe uma classe reprsentando o formulário de registro contendo as propriedades "Email", "Password" e "ConfirmPassword". Todas propriedades decoradas com Data Annotations para validação client side (assemelhando-se a uma ViewModel).
+
+E por fim, possuis dois métodos que trabalham conforme as requisições do cliente. Temos o método "OnGet" que é executado quando o cliente envia uma requisição "Get" com a Url da razor page (/Identity/Account/Register). O Segundo método é que é executado com uma requisição do tipo "Post" - "OnPostAsync".
+
+No método "OnPostAsync" é realizado as validações de usuário do Identity e caso válido, persistido no Banco de Dados. Por padrão na coluna UserName é passado o valor do email passado no formulário.
+
+Além da validação e persistencia, é possível notarmos a geração de código relacionado a Confirmação de Email, caso a aplicação possua esse requisito.
+
