@@ -1,6 +1,6 @@
 # Criando Registro e Login de Usuários de uma forma Segura
 
-Ao ligarmos nosso computador, acessarmos nosso email ou tentar entrar em nossa conta do banco notamos algo em comum - A necessidade de autenticação.
+Ao ligarmos nosso computador, acessarmos nosso email ou tentarmos entrar em nossa conta do banco notamos algo em comum - A necessidade de autenticação.
 
 Hoje em dia, ao navegarmos pelos sites e sistemas percebos que é algo muito comum as telas de Registro e Login de usuários. Ou seja, é algo rotineiro para o desenvolvimento de sistemas.
 
@@ -316,15 +316,24 @@ RegisterModel é criado dentro do arquivo "Register.cshtml.cs".
 
 O arquivo Register.cshtml.cs é classe modelo da Razor Page (é a classe PageModel, que nesse caso é "RegisterModel"). Por convenção possui o mesmo nome da Razor Page.
 
-Analisando a classe RegisterModel notamos que é filha de PageModel e recebe por injeção de dependencia o "SignInManager", "UserManager", "ILogger" e "IEmailSender".
+Analisando a classe RegisterModel notamos que é filha de PageModel e recebe por injeção de dependência o "SignInManager", "UserManager", "ILogger" e "IEmailSender".
+
+![RegisterModel](imagens/02-xpelum/RegisterModel-01.png)
 
 Possui duas propriedades publicas - "Input" do tipo InputModel e "ReturnUrl" do tipo string.
 
-Existe uma classe reprsentando o formulário de registro contendo as propriedades "Email", "Password" e "ConfirmPassword". Todas propriedades decoradas com Data Annotations para validação client side (assemelhando-se a uma ViewModel).
+![RegisterModel](imagens/02-xpelum/RegisterModel-02.png)
+
+Existe uma classe representando o formulário de registro contendo as propriedades "Email", "Password" e "ConfirmPassword". Todas propriedades decoradas com Data Annotations para validação client side (assemelhando-se a uma ViewModel).
+
+![RegisterModel](imagens/02-xpelum/RegisterModel-03.png)
 
 E por fim, possuis dois métodos que trabalham conforme as requisições do cliente. Temos o método "OnGet" que é executado quando o cliente envia uma requisição "Get" com a Url da razor page (/Identity/Account/Register). O Segundo método é que é executado com uma requisição do tipo "Post" - "OnPostAsync".
+
+![RegisterModel](imagens/02-xpelum/RegisterModel-04.png)
 
 No método "OnPostAsync" é realizado as validações de usuário do Identity e caso válido, persistido no Banco de Dados. Por padrão na coluna UserName é passado o valor do email passado no formulário.
 
 Além da validação e persistencia, é possível notarmos a geração de código relacionado a Confirmação de Email, caso a aplicação possua esse requisito.
 
+![RegisterModel](imagens/02-xpelum/RegisterModel-05.png)
