@@ -245,3 +245,20 @@ A partir do ASP.NET Core 2.1 as telas do Identity são do tipo "Razor Class Libr
 Falaremos agora como adicionar o código-fonte das Razor Class Libraries para conseguirmos modifica-las.
 
 ---
+
+### Importado as Razor Class Libraries
+
+Para conseguirmos ter acesso às paginas criadas pelo Identity, temos que realizar um Scaffold.
+
+Clicando com o botão direito do mouse sobre o projeto, selecionamos a opção "Add" > "New Scaffolded Item".
+
+![New scaffolded item](imagens/02-xpelum/new-scaffolded-item.png)
+
+Ao clicarmos em "New Scaffolded Item" uma nova janela irá se abrir. Devemos selecionar a opção "Identity", que está localizada no lado esquerdo da Aba, e clicar no botão "Add".
+
+![New scaffolded item](imagens/02-xpelum/new-scaffolded-item-02.png)
+
+Quando clicamos no botão "Add" outra janela irá se abrir (pode demorar um pouco). Nessa janela é onde selecionamos as telas que terão os seus códigos fontes importados para o projeto, sendo assim, possível edita-los.
+
+![New scaffolded item](imagens/02-xpelum/new-scaffolded-item-03.png)
+
