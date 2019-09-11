@@ -279,3 +279,20 @@ Dentro do diretório Areas/Identity/Pages/ foi criado uma nova pasta - Account. 
 Se formos observar a criação das telas padrões do ASP.NET Core Identity pelo Scaffold, é um pouco diferente das "Views" que conhecemos dos projetos MVC. Não foi criado nenhuma Classe de Model e Controller para realizar o fluxo de chamadas dessas telas quando necessário.
 
 Isso ocorre, por que como foi dito anteriormente, o Identity, a partir da versão do ASP.NET Core 2.1, trabalha com Razor Class Libraries.
+
+O recurso "Razor Class Libraries" é algo novo no ASP.NET Core. Vamos entende-lo melhor com as Views criadas pelo Scaffold do Identity.
+
+---
+
+A Razor Class Libraries (RCL) permite encapsular Razor views, Paginas, Controladores, Razor Components, Views Components e Modelos de dados, podendo ser empacotados e reutilizados, como uma lib.
+
+Inicialmente isso pode parecer um pouco confuso, mas analisando melhor, podemos observar algumas vantagens no uso das Razor Class Libraries e consecultivamente o uso das RCLs pelo Identity.
+
+- Facilidade na compartilhamento de código (UI e Regra de negócio);
+- Evitamos a repetição de códigos em diversos projetos;
+- Abstração de códigos comuns;
+
+Obs: Nós também podemos criar nossas prórpias Razor Class Libraries e reutiliza-las em nossas aplicaçãoes. Para usar uma RCL temos duas opções - Criando um pacote nuget ou Adicionando como Referência na Aplicação.
+
+#### Analisando a Register.cshtml
+
