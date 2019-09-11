@@ -328,7 +328,7 @@ Existe uma classe representando o formulário de registro contendo as propriedad
 
 ![RegisterModel](imagens/02-xpelum/RegisterModel-03.png)
 
-E por fim, possuis dois métodos que trabalham conforme as requisições do cliente. Temos o método "OnGet" que é executado quando o cliente envia uma requisição "Get" com a Url da razor page (/Identity/Account/Register). O Segundo método é que é executado com uma requisição do tipo "Post" - "OnPostAsync".
+E por fim, possuis dois métodos que trabalham conforme as requisições do cliente. Temos o método "OnGet" que é executado quando o cliente envia uma requisição "Get" com a Url da razor page (/Identity/Account/Register). O Segundo método é executado quando há uma requisição do tipo "Post" - "OnPostAsync".
 
 ![RegisterModel](imagens/02-xpelum/RegisterModel-04.png)
 
