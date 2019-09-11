@@ -260,5 +260,22 @@ Ao clicarmos em "New Scaffolded Item" uma nova janela irá se abrir. Devemos sel
 
 Quando clicamos no botão "Add" outra janela irá se abrir (pode demorar um pouco). Nessa janela é onde selecionamos as telas que terão os seus códigos fontes importados para o projeto, sendo assim, possível edita-los.
 
+Selecione as telas que desejar!
+
 ![New scaffolded item](imagens/02-xpelum/new-scaffolded-item-03.png)
 
+Inicialmente, como forma de exemplo, realizei o Scaffold de três "views" - "Register", "Login" e "AccessDined".
+
+Dentro do diretório Areas/Identity/Pages/ foi criado uma nova pasta - Account. Dentro dessa pasta possuimos alguns arquivos, mas inicialmente focaremos nos arquivos "AccsessDenied.cshtml", "Login.cshtml" e "Register.cshtml".
+
+//testar aqui exlcuindo os outros arquivos para checar a real dependencia deles para funcionalidade das views.
+
+![New scaffolded item](imagens/02-xpelum/new-scaffolded-item-04.png)
+
+---
+
+### Conhecendo as Razor Class Libraries
+
+Se formos observar a criação das telas padrões do ASP.NET Core Identity pelo Scaffold, é um pouco diferente das "Views" que conhecemos dos projetos MVC. Não foi criado nenhuma Classe de Model e Controller para realizar o fluxo de chamadas dessas telas quando necessário.
+
+Isso ocorre, por que como foi dito anteriormente, o Identity, a partir da versão do ASP.NET Core 2.1, trabalha com Razor Class Libraries.
