@@ -337,3 +337,57 @@ No método "OnPostAsync" é realizado as validações de usuário do Identity e 
 Além da validação e persistencia, é possível notarmos a geração de código relacionado a Confirmação de Email, caso a aplicação possua esse requisito.
 
 ![RegisterModel](imagens/02-xpelum/RegisterModel-05.png)
+
+---
+
+## Entendendo como o ASP.NET Core Identity trabalha
+
+Até o momento nós entendemos e implementamos o Identity em uma aplicação e pudemos notar que muita coisa se torna abstrata para o desenvolvedor.
+
+Porém agora vamos entender o que o Identity faz "por baixo dos panos" para ajudar e facilitar a vida do desenvolvedor .NET.
+
+Para conseguirmos entender melhor o Identity vamos analisar o seu código fonte. Podemos encontra-lo de forma aberta no GitHub do "aspnet" e no repositório "AspNetCore".
+
+Dentro desse repositório existe o diretório "src" que possui todas as bibliotecas que estão dispobíveis para o DOT.NET Core. Lá podemos encontrar a pasta "Identity", que possui o seu código fonte.
+
+---
+
+### Classe Startup
+
+Como vimos anteriormente, ao criarmos um projeto já com o Identity, uma das primeira coisas que notamos no código gerado pelo template do ASP.NET Core são as referências do Identity na classe Startup.cs.
+
+No método ConfigureServices é criado as linhas que adicionam o Identity no projeto. No método Configure é criado a linha para ser usado a Autenticação no Projeto.
+
+#### Observações
+
+- Na figura abaixo é possivel ver uma instrução ".AddRoles< IdentityRole>()". Isso não foi criado pelo template. Foi colocado posteriormente, durante as explicações de Roles.
+
+- A Autenticação citada acima não faz parte do Identity em si, porém é usado por ele para a realização da Autorização vista na Demo desse post.
+
+#### Método ConifigureServices
+
+![Startup.cs](imagens/02-xpelum/explicando-Identity-01.png)
+
+#### Método Conifigure
+
+![Startup.cs](imagens/02-xpelum/explicando-Identity-02.png)
+
+---
+
+#### AddDefaultIdentity
+
+Agora vamos entender o que esses códigos acima realmente fazem (linha a linha).
+
+Analisando a primeira linha do código que é reponsavel por adicionar o Identity no projeto, vemos que está sendo adicionado um serviço - **"services.AddDefaultIdentity< IdentityUser>()"**.
+
+Podemos encontrar o método de **AddDefaultIdentity** dentro da classe **IdentityServiceCollectionUIExtensions** que está no diretório Identity/UI. Sua responsabilidade é "adicionar um conjunto de serviços de identidade comuns ao aplicativo, incluindo um padrão UI, provedores de token e configurar a autenticação para usar cookies de identidade." Seu retorno é um **IdentityBuilder**.
+
+![Identity](imagens/02-xpelum/explicando-Identity-03.png)
+
+A classe **IdentityBuilder.cs** está no diretório Identity/Core/src. Possui a responsabilidade de gerar funções auxiliares de configuação dos serviços do Identity. Podemos citar o "AddRoles" que usamos nesse projeto.
+
+![Identity](imagens/02-xpelum/explicando-Identity-04.png)
+
+---
+
+#### IdentityUser
