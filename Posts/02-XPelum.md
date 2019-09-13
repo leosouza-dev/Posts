@@ -380,14 +380,34 @@ Agora vamos entender o que esses códigos acima realmente fazem (linha a linha).
 
 Analisando a primeira linha do código que é reponsavel por adicionar o Identity no projeto, vemos que está sendo adicionado um serviço - **"services.AddDefaultIdentity< IdentityUser>()"**.
 
-Podemos encontrar o método de **AddDefaultIdentity** dentro da classe **IdentityServiceCollectionUIExtensions** que está no diretório Identity/UI. Sua responsabilidade é "adicionar um conjunto de serviços de identidade comuns ao aplicativo, incluindo um padrão UI, provedores de token e configurar a autenticação para usar cookies de identidade." Seu retorno é um **IdentityBuilder**.
+Podemos encontrar o método de **AddDefaultIdentity** dentro da classe **IdentityServiceCollectionUIExtensions** que está no diretório "Identity/UI". Sua responsabilidade é "adicionar um conjunto de serviços de identidade comuns ao aplicativo, incluindo um padrão UI, provedores de token e configurar a autenticação para usar cookies de identidade." Seu retorno é um **IdentityBuilder**.
 
 ![Identity](imagens/02-xpelum/explicando-Identity-03.png)
 
-A classe **IdentityBuilder.cs** está no diretório Identity/Core/src. Possui a responsabilidade de gerar funções auxiliares de configuação dos serviços do Identity. Podemos citar o "AddRoles" que usamos nesse projeto.
+A classe **IdentityBuilder.cs** está no diretório "Identity/Extensions.Core/src". Possui a responsabilidade de gerar funções auxiliares de configuação dos serviços do Identity. Podemos citar o "AddRoles" que usamos nesse projeto.
 
 ![Identity](imagens/02-xpelum/explicando-Identity-04.png)
 
 ---
 
 #### IdentityUser
+
+Podemos encontrar a classe **IdentityUser.cs** no diretório "Identity/Extensions.Store/src". Essa classe herda de "IdentityUser< string>" e possui dois construtores que criam o "Id" e o "SecurityStamp" como novos "Guid" e atribui o UserName quando passado por parâmetro.
+
+![Identity](imagens/02-xpelum/explicando-Identity-05.png)
+
+A classe base **IdentityUser< string>** está no mesmo arquivo - **IdentityUser.cs**. 
+
+Podemos ver um construtor e diversas Propriedades que representam um Usuário pelo identity - Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled e AccessFailedCount.
+
+Além disso, é sobrescrito o método "ToString" passando o valor de UserName.
+
+Obs: A Classe IdentityUser.cs é usada para geração de uma tabela de banco de dados. Falaremos disso mais adiante.
+
+![Identity](imagens/02-xpelum/explicando-Identity-06.png)
+
+#### IdentityRole
+
+Continuando a analise do código gerado pelo template, seguimos com a seguinte instrução - ".AddRoles< IdentityRole>()".
+
+**AddRole()** é um método da classe **IdentityBuilder.cs** que vimos agora pouco.
