@@ -396,7 +396,7 @@ Podemos encontrar a classe **IdentityUser.cs** no diretório "Identity/Extension
 
 ![Identity](imagens/02-xpelum/explicando-Identity-05.png)
 
-A classe base **IdentityUser< string>** está no mesmo arquivo - **IdentityUser.cs**. 
+A classe base **IdentityUser< string>** está no mesmo arquivo - **IdentityUser.cs**.
 
 Podemos ver um construtor e diversas Propriedades que representam um Usuário pelo identity - Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled e AccessFailedCount.
 
@@ -406,8 +406,44 @@ Obs: A Classe IdentityUser.cs é usada para geração de uma tabela de banco de 
 
 ![Identity](imagens/02-xpelum/explicando-Identity-06.png)
 
+#### AddRole()
+
+Continuando a análise do código usado pelo Identity, seguimos com a seguinte instrução - ".AddRoles< IdentityRole>()".
+
+Lembrando que essa linha **não** foi gerada pelo template.
+
+**AddRole()** é um método da classe **IdentityBuilder.cs**, que vimos agora pouco. Sua função é "Adicionar serviços relacionados à função do TRole, incluindo IRoleStore, IRoleValidator e RoleManager".
+
+obs: Roles são usadas para autenticar grupos de usuário com características diferenciadas, por exemplo - Admin.
+
+![Identity](imagens/02-xpelum/explicando-Identity-07.png)
+
 #### IdentityRole
 
-Continuando a analise do código gerado pelo template, seguimos com a seguinte instrução - ".AddRoles< IdentityRole>()".
+A classe **IdentityRole.cs** é responsável por "implementar o padrão do Microsoft.AspNetCore.Identity.IdentityRole" e que usa uma string como chave primária".
 
-**AddRole()** é um método da classe **IdentityBuilder.cs** que vimos agora pouco.
+O arquivo da classe está no diretório "Identity/Extensions.Store/src".
+
+Ela herda de "IdentityRole< string>" e possui dois construtores. O primeiro é vazio, onde é criado o "Id" como um guid transformado para string. O segundo construtor possui um parametro para receber o "RoleName".
+
+![Identity](imagens/02-xpelum/explicando-Identity-08.png)
+
+A classe base **IdentityRole< string>** está no mesmo arquivo - **IdentityRole.cs**.
+
+Essa classe pois dois contrutores e diversas propriedades que representam uma Role - Id, Name, NormalizedName e ConcurrencyStamp.
+
+Também possui a sobrescrita do método "ToString()" retornando o "Name".
+
+Obs: A Classe IdentityRole.cs é usada para geração de uma tabela de banco de dados. Falaremos disso mais adiante.
+
+![Identity](imagens/02-xpelum/explicando-Identity-09.png)
+
+---
+
+#### AddDefaultUI()
+
+//dúvida - Onde é feito a normalização dos nomes????w pesquisarrrr
+
+//Após falar dos códigos da classe startup, falar das migrations e ef core que é usado para gerar as tabelas padrões do Identity.
+
+//Depois falar das Razor Class Library
