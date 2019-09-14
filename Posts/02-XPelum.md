@@ -463,5 +463,14 @@ Obs: Além do Bootstrap 4, podemos usar o Bootsrap 3 como framework padrão em n
 
 Na ultima linha criada no método "ConfigureServices" da classe "Startup.cs" temos o metodo "AddEntityFrameworkStores()" que pertence a classe "IdentityEntityFrameworkBuilderExtensions.cs", que é um extension methods de "IdentityBuilder".
 
+També é possível notar a referêcia ao Contexto de dados que o EntityFramework Core irá usar - "ApplicationDbContext". Esse contexto também foi criado pelo Identity, porém falaremos mais dele adiante.
 
+Essa classe está localizada no diretório "Identity/EntityFrameworkCore/src".
 
+Como o nome do método sugere, é ele o responsável por adicionar o Entity Framework Core para persistir os dados do Identity.
+
+![Identity](imagens/02-xpelum/explicando-Identity-11.png)
+
+// falar da connection string
+
+//falar do DbContext
