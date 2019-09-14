@@ -442,8 +442,13 @@ Obs: A Classe IdentityRole.cs é usada para geração de uma tabela de banco de 
 
 #### AddDefaultUI()
 
-//dúvida - Onde é feito a normalização dos nomes????w pesquisarrrr
+Na próxima linha, temos o seguinte código **.AddDefaultUI(UIFramework.Bootstrap4)**.
+De cara notamos que é um método que está passando como parâmetro o Bootstrap 4 como a biblioteca padrão para ser utilizado nas páginas que o Identity gera automaticamente.
 
-//Após falar dos códigos da classe startup, falar das migrations e ef core que é usado para gerar as tabelas padrões do Identity.
+Mas não é só isso que esse método faz...
 
-//Depois falar das Razor Class Library
+Esse método está localizado na classe "IdentityBuilderUIExtensions.cs", que por sua vez está no diretório "Identity/UI/src".
+
+![Identity](imagens/02-xpelum/explicando-Identity-10.png)
+
+---
