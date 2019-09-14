@@ -451,4 +451,17 @@ Esse método está localizado na classe "IdentityBuilderUIExtensions.cs", que po
 
 ![Identity](imagens/02-xpelum/explicando-Identity-10.png)
 
+Como podemos notar na imagem do método, a primeira coisa que ele está fazendo é executar o método "AddSignInManager()". É um método da classe que extende o IdentityBuilder - "IdentityBuilderExtensions.cs".
+
+Além disso é adicionado alguns outros serviços e opções de configurações para importar toda a parte de UI da aplicação, como exemplo o IEmailSender e MVC.
+
+Obs: Além do Bootstrap 4, podemos usar o Bootsrap 3 como framework padrão em nossas aplicações, caso seja necessário.
+
 ---
+
+#### AddEntityFrameworkStores()
+
+Na ultima linha criada no método "ConfigureServices" da classe "Startup.cs" temos o metodo "AddEntityFrameworkStores()" que pertence a classe "IdentityEntityFrameworkBuilderExtensions.cs", que é um extension methods de "IdentityBuilder".
+
+
+
