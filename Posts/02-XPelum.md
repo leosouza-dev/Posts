@@ -477,6 +477,18 @@ Por utilizar o ORM Entity FrameworkCore como padrão, o Identity criará as tabe
 
 Nessa ultima instrução, também é passado como referência o Contexto **ApplicationDbContext** que também foi criado automaticamente pelo template do Identity.
 
+A classe ApplicationDbContext.cs herda de IdentityDbContext e possui um construtor, passando o DbContextOptions para a classe base.
+
+![Identity](imagens/02-xpelum/explicando-Identity-12.png)
+
+Obs:**IdentityDbContext** herda de **IdentityUserContext**, que por sua vez herda de **DbContext**.
+
+//eplicar as configurações de senha, usuario,
+
+//como ele cria a senha hash, tabelas normalizadas
+
+//entender onde e como ele selecioona as tabelas para criar a migration inicial
+
 // falar da connection string
 
-//falar do DbContext
+//falar do DbContext - como ele ccria o ApplicationDbCOntext
