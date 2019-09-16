@@ -469,7 +469,13 @@ Essa classe está localizada no diretório "Identity/EntityFrameworkCore/src".
 
 Como o nome do método sugere, é ele o responsável por adicionar o Entity Framework Core para persistir os dados do Identity.
 
+Por utilizar o ORM Entity FrameworkCore como padrão, o Identity criará as tabelas necessárias a partir da abordagem Code First, onde mapeamos nossas classes de entidades primeiramente, e só depois, com a utilização de Migrations, é criado o Banco de Dados com as taelas necessárias.
+
 ![Identity](imagens/02-xpelum/explicando-Identity-11.png)
+
+#### ApplicationDbContext
+
+Nessa ultima instrução, também é passado como referência o Contexto **ApplicationDbContext** que também foi criado automaticamente pelo template do Identity.
 
 // falar da connection string
 
