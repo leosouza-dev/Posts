@@ -551,7 +551,22 @@ O construtor padrão do IdentityUser possui apenas duas intruções - criação 
 
 ![Razor Class Library](imagens/02-xpelum/RCL-06.png)
 
- Obs: Register, injeta por injeção de dependencia - SignInManager, UserManager, ILogger e IEmailSender.
+As propriedades usadas nesse momento são :
+
+        [ProtectedPersonalData]
+        public virtual string UserName { get; set; }
+
+        [ProtectedPersonalData]
+        public virtual string Email { get; set; }
+
+A seguinte instrução -**var result = await _userManager.CreateAsync(user, Input.Password);** é para criar um usuário passando o IdentityUser e a Senha digitada no Campo Password da view, através do método CreateAsync de _userManager.
+
+Obs: Não apenas UserManager, mas como SignInManager, ILogger e IEmailSender estão injetado na classe via Injeção de Dependência.
+
+Analisando o Método CreateAsync da classe UserManager...
+
+![Razor Class Library](imagens/02-xpelum/RCL-07.png)
+
 
 ### Logando na Aplicação
 
