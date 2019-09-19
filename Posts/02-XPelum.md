@@ -492,3 +492,53 @@ Obs:**IdentityDbContext** herda de **IdentityUserContext**, que por sua vez herd
 // falar da connection string
 
 //falar do DbContext - como ele ccria o ApplicationDbCOntext
+
+---
+
+### UI
+
+Como falamos anteriormente, as Interfaces de Usuários (UI) padrões que são criadas pelo Identity são do tipo Razor Class Library (RCL).
+
+Já falamos também do que se trata as "Razor Class Libraries** - " É um tipo de recurso que permite encapsular em uma biblioteca construções como Razor Pages, Views e Controllers, contribuindo assim para um maior reaproveitamento de código em projetos Web baseados no ASP.NET Core."
+
+No caso do Identity, foram encapsuladas Razor Pages. Podemos encontrar, no código fonte, as Razor Pages do Identity dentro do diretório **UI**.
+
+Ao navegarmos pelo Diretório "UI", chegamos nos códigos fontes a partir do diretório **UI/src/Areas/Identity/Pages/..**. Dentro da pasta Pages existem mais outras duas Pastas - V3 e V4. Nesse caso, iremos estudar a mais recente - V4.
+
+Dentro de **V4** existem diversas PartialViwes além da pasta **Account**. Essa Pasta Account é onde encontra-se a grande maioria das Razor Pages do Identity, que podemos importa-las em nossos projetos caso seja necessário modifica-las ou traduzi-las, por exemplo.
+
+![Razor Class Library](imagens/02-xpelum/RCL-01.png)
+
+Podemos notar que a sequência de pastas criadas ao realizarmos um Scaffolding (Importar a RCL para um projeto nosso) de uma "tela" em um projeto é muito parecida com a árvore do código do fonte do Identity.
+
+Abaixo podemos ver um grande número de Razor Pages que são padrões do Identity, ou seja, podemos importar qualquer um dependendo da necessidade do projeto.
+
+![Razor Class Library](imagens/02-xpelum/RCL-02.png)
+
+No aplicação que criamos para a entendermos um pouco mais de como funciona o Identity, realizamos o Scaffolding de apenas três telas - Register, Login e Acesso Negado, que no identity estão representados por "Register.cshtml", "Login.cshtml" e "AccessDenied.cshtm" respectivamente, além dos arquivos cSharp (extensão cshtml.cs).
+
+Analisando o código desses arquivos fontes, notamos que são identicos ao que importamos em nosso projeto:
+
+- Register.cshtml - Esse arquivo inicia-se com a diretiva @page (já falado anteriormente) e possui o código HTML que representa o formulario de Registro de um Identity User padrão:
+
+![Razor Class Library](imagens/02-xpelum/RCL-03.png)
+
+- Register.cshtml.cs - Da mesma forma que o arquivo que representa o HTML da View Register é identico ao Importado em nossa aplicação, o arquivo CSharp também é. Possui uma classe **RegisterModel** que herda de PageModel. Existem algumas propriedades e uma classe interna **InputModel** que representa os campos que serão usados no formulário de Registro.
+
+![Razor Class Library](imagens/02-xpelum/RCL-04.png)
+
+Além disso ainda possui os métodos OnGetAsync e OnPostAsync que trabalham nas requisoções do Client.
+
+![Razor Class Library](imagens/02-xpelum/RCL-05.png)
+
+Analisando a Razor Class Library de Register, obeservamos que os códigos gerados pelo Scaffolding assemelha-se muito com o código fonte das Razaor Pages, com isso evita a necessidade de analisarmos o as outras Insterfaces de Usuário criadas - Login e Acesso negado, pois seguem o mesmo padrão.
+
+---
+
+### Registrando um Usuário
+
+
+### Logando na Aplicação
+//ao clicar em registar, o que acontece?????????
+
+//ao clicar em Login, o que acontece?????????
