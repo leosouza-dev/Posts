@@ -537,8 +537,22 @@ Analisando a Razor Class Library de Register, obeservamos que os códigos gerado
 
 ### Registrando um Usuário
 
+Agora vamos entender o processo de Registro de Usuário e como o Identity se comporta nesse momento.
+
+Quando o cliente clica na oção "Register" no menu de navegação da aplicação, o método "OnGetAsync" da classe "RegisterModel" é executado. OnGetAsync podemos deduzir que se trata de um método do retorno Get, com a responsabilidade de retornar a "view" com o formulário de Registro.
+
+Após o Cliente clicar no botão "Register" após preencher o formulário, o método "OnPostAsync" é executado. É dele a responsabilidade tratar as requisições do tipo "Post".
+
+A primeira linha de instrução do código é para tratarmos e retornarmos a URL. Em seguida caimos no bloco de código que faz a verificação se ModelState é valido.
+
+Com o ModelState válido, temos a seguinte linha de instrução - **var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };**. Onde é criado um novo IdentityUser passando o valor preenchido no campo da tela Email para as propriedades "UserName" e "Email".
+
+O construtor padrão do IdentityUser possui apenas duas intruções - criação do Id e SecurityStamp, ambos do tipo Guid e convertidos para string.
+
+![Razor Class Library](imagens/02-xpelum/RCL-06.png)
+
+ Obs: Register, injeta por injeção de dependencia - SignInManager, UserManager, ILogger e IEmailSender.
 
 ### Logando na Aplicação
-//ao clicar em registar, o que acontece?????????
 
 //ao clicar em Login, o que acontece?????????
