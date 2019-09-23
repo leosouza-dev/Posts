@@ -545,7 +545,7 @@ Após o Cliente clicar no botão "Register" após preencher o formulário, o mé
 
 A primeira linha de instrução do código é para tratarmos e retornarmos a URL. Em seguida caimos no bloco de código que faz a verificação se ModelState é valido.
 
-Com o ModelState válido, temos a seguinte linha de instrução - **var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };**. Onde é criado um novo IdentityUser passando o valor preenchido no campo da tela Email para as propriedades "UserName" e "Email".
+Com o ModelState válido, temos a seguinte linha de instrução **var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };**. Onde é criado um novo IdentityUser passando o valor preenchido no campo da tela Email para as propriedades "UserName" e "Email".
 
 O construtor padrão do IdentityUser possui apenas duas intruções - criação do Id e SecurityStamp, ambos do tipo Guid e convertidos para string.
 
@@ -559,13 +559,65 @@ As propriedades usadas nesse momento são :
         [ProtectedPersonalData]
         public virtual string Email { get; set; }
 
-A seguinte instrução -**var result = await _userManager.CreateAsync(user, Input.Password);** é para criar um usuário passando o IdentityUser e a Senha digitada no Campo Password da view, através do método CreateAsync de _userManager.
+A seguinte instrução **var result = await _userManager.CreateAsync(user, Input.Password);** é para criar um usuário passando o IdentityUser e a Senha digitada no Campo Password da view, através do método CreateAsync de _userManager.
 
 Obs: Não apenas UserManager, mas como SignInManager, ILogger e IEmailSender estão injetado na classe via Injeção de Dependência.
 
-Analisando o Método CreateAsync da classe UserManager...
+Analisando o Método CreateAsync da classe UserManager notamos que aqui é verificado se o Usuario e Password são verificados se estão nulos.
 
 ![Razor Class Library](imagens/02-xpelum/RCL-07.png)
+
+Caso Usuário e Password estejam preenchidos de acordo com o esperado, é executado o método **UpdatePasswordHash**, onde com o nome diz, cria uma senha com HASH: 
+
+        private async Task<IdentityResult> UpdatePasswordHash(IUserPasswordStore<TUser> passwordStore,
+            TUser user, string newPassword, bool validatePassword = true)
+        {
+            if (validatePassword)
+            {
+                var validate = await ValidatePasswordAsync(user, newPassword);
+                if (!validate.Succeeded)
+                {
+                    return validate;
+                }
+            }
+            var hash = newPassword != null ? PasswordHasher.HashPassword(user, newPassword) : null;
+            await passwordStore.SetPasswordHashAsync(user, hash, CancellationToken);
+            await UpdateSecurityStampInternal(user);
+            return IdentityResult.Success;
+        }
+
+Obs.: Essa senha Hash é guardada no banco de dados. Não salvamos a senha que foi criada no formulário pelo usuário por questões de segurança.
+
+Com a senha Hash criada, vamos para a próxima instrução.
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { userId = user.Id, code = code },
+                        protocol: Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
+                }
+
+Aqui verificamos se o Resultado da criação, usando o CreateAsync, foi com sucesso (**var result = await _userManager.CreateAsync(user, Input.Password);**). 
+
+Caso tenha sido uma criação com sucesso, o código vai para dentro do bloco "if". Dentro desse bloco vemos muito código responsável pela criação do email de confirmação ao registrar. Nesse exmplo não estamos aplicando essa funcionalidade, podemos falar em um futuro Post.
+
+Além dos códigos de criação de Email de Confirmação, notamos uma mensagem de Logger ("User created a new account with password.") e também a execução do metodo "SignInAsync" do "_signInManager".
+
+_signInManager é injetado no construtor através da classe SignInManager.cs. Podemos encontrar a classe no source do identity pelo diretório **Identity/Core/src/SignInManager.cs**
+
+Abaixo temos o metodo SignInAsync:
+
 
 
 ### Logando na Aplicação
