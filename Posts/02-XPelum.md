@@ -677,3 +677,60 @@ Nessa aplicação não usamos a opção "two-factor authentication", por isso n�
 
 Com a verificação do ModelState válida, é executado o método **PasswordSignInAsync** de _signInManager, que foi injetado no construtor por injeção de dependência através da classe **SigninManage.cs**.
 
+Podemos encontrar a classe no source do identity pelo diretório **Identity/Core/src/SignInManager.cs**, no GitHub.
+
+Abaixo o método PasswordSignInAsync:
+
+        public virtual async Task<SignInResult> PasswordSignInAsync(string userName, string password,
+            bool isPersistent, bool lockoutOnFailure)
+        {
+            var user = await UserManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                return SignInResult.Failed;
+            }
+
+            return await PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
+        }
+
+Basicamente verifica se o que o usário existe usando o método FindByNameAsync da classe UserManager e depois retorna passando o método de verificação. 
+
+        public virtual async Task<SignInResult> PasswordSignInAsync(TUser user, string password,
+            bool isPersistent, bool lockoutOnFailure)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var attempt = await CheckPasswordSignInAsync(user, password, lockoutOnFailure);
+            return attempt.Succeeded
+                ? await SignInOrTwoFactorAsync(user, isPersistent)
+                : attempt;
+        }
+
+Da mesma forma do anterior, checa-se se o usuário é nulo e também checa o Passwaord com o método CheckPasswordSignInAsync.
+
+Com tudo certo, retorna para o método OnPostAsync, e após isso executa a instrução **return Page();** (lembrando que antes de ir para essa última instrução, ainda existe outras verificações, mas como não estamos usando nesse exemplo, não citaremos).
+
+Caso alguma dessas verificações seja falsa, a execução do código ira para o bloco "else", que retorna para a view do formulário informando que não foi possível logar.
+
+---
+
+## Roles
+
+Nesse exemplo, além da autenticação do Identity, também usamos a Autorização trabalhando com as Roles.
+
+---
+
+## Conclusao
+
+Como vimos, o Processo de Autenticação e Autorização é algo comum nas aplicações e o Identity surgiu para ajudar a vida dos desenvolvedores, com muitas funcionalidades prontas e seguras.
+Muitos programadores sabem como usar essas funcionalidades, porém não sabem como e o que elas fazem por de baixo dos panos.
+Meu intuito com esse Post foi mostrar como o Identity funciona. Claro que não falei de todo o identity, mas o básico, como o Registro, Login e Autorização.
+Muitas outras funcionalidades como Envio de Email e "Two Factor" não foram citados, mas poderão ser citadas em posts futuros.
+Algo que notei durante o desenvolvimento desse post, como era de se prever, é que o código fonte do Identity não é algo simples e trivial. Há muito código, isso muito pela maturidade e quantidades de funcionalidades existentes.
+Enfim, usem e abusem do Identity, além de ser confiável e relativamente fácil de usar é customizavel. E esse será o assunto do próximo Post.
+
+
+
