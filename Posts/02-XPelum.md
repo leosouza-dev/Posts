@@ -590,23 +590,23 @@ Obs.: Essa senha Hash é guardada no banco de dados. Não salvamos a senha que f
 
 Com a senha Hash criada, vamos para a próxima instrução.
 
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
+        if (result.Succeeded)
+        {
+                _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: Request.Scheme);
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = Url.Page(
+                "/Account/ConfirmEmail",
+                pageHandler: null,
+                values: new { userId = user.Id, code = code },
+                protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
-                }
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+        }
 
 Aqui verificamos se o Resultado da criação, usando o CreateAsync, foi com sucesso (**var result = await _userManager.CreateAsync(user, Input.Password);**). 
 
@@ -618,7 +618,21 @@ _signInManager é injetado no construtor através da classe SignInManager.cs. Po
 
 Abaixo temos o metodo SignInAsync:
 
+        /// <summary>
+        /// Signs in the specified <paramref name="user"/>.
+        /// </summary>
+        /// <param name="user">The user to sign-in.</param>
+        /// <param name="isPersistent">Flag indicating whether the sign-in cookie should persist after the browser is closed.</param>
+        /// <param name="authenticationMethod">Name of the method used to authenticate the user.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public virtual Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null)
+            => SignInAsync(user, new AuthenticationProperties { IsPersistent = isPersistent }, authenticationMethod);
 
+Após a execução do SignInAsync, a próxmia instrução executada é a **return LocalRedirect(returnUrl);**, que já é o retorno, após a o resgitro de um usuário.
+
+Caso o resultado do CreateAsync seja falso, como já foi dito anteriormente, a execução não cairá no if, e passará por laço de repetição verificando todos os erros e depois retornando para a view.
+
+---
 
 ### Logando na Aplicação
 
