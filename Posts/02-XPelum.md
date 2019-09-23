@@ -636,4 +636,44 @@ Caso o resultado do CreateAsync seja falso, como já foi dito anteriormente, a e
 
 ### Logando na Aplicação
 
-//ao clicar em Login, o que acontece?????????
+Quando o cliente já está registrado na aplicação (processo explicado no item anterior) ele já pode logar-se.
+Para acontecer isso ele terá que clicar no botão de Login no menu de navegação da aplicação.
+
+Muito parecido com o Register, ao clicar em "Login" o método "OnGetAsync" da classe "LoginModel" é executado. OnGetAsync (trata requisição GET) tem a responsabilidade de retornar a "view" com o formulário de Login.
+
+Quando o usuário preenche os campos do formulário de Login, o clica no botão de confirmação caimos no método "OnPostAsync".
+
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(returnUrl);
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("User account locked out.");
+                    return RedirectToPage("./Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
+            }
+
+Esse método verifica se os dados passados no formulário de Login batem com algum usuário Registrado. Além dessa simples verificação, o Identity já cria um código verificando o Login de two-factor authentication e se o usuário está bloqueado.
+
+Nessa aplicação não usamos a opção "two-factor authentication", por isso não trataremos nesse exemplo.
+
+Com a verificação do ModelState válida, é executado o método **PasswordSignInAsync** de _signInManager, que foi injetado no construtor por injeção de dependência através da classe **SigninManage.cs**.
+
