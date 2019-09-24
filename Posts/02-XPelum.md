@@ -561,9 +561,9 @@ As propriedades usadas nesse momento são :
 
 A seguinte instrução **var result = await _userManager.CreateAsync(user, Input.Password);** é para criar um usuário passando o IdentityUser e a Senha digitada no Campo Password da view, através do método CreateAsync de _userManager.
 
-Obs: Não apenas UserManager, mas como SignInManager, ILogger e IEmailSender estão injetado na classe via Injeção de Dependência.
+Obs: Não apenas UserManager, mas também o SignInManager, ILogger e IEmailSender estão injetados na classe.
 
-Analisando o Método CreateAsync da classe UserManager notamos que aqui é verificado se o Usuario e Password são verificados se estão nulos.
+Analisando o Método CreateAsync da classe UserManager notamos que aqui é verificado se o Usuario e Password são nulos.
 
 ![Razor Class Library](imagens/02-xpelum/RCL-07.png)
 
@@ -586,9 +586,9 @@ Caso Usuário e Password estejam preenchidos de acordo com o esperado, é execut
             return IdentityResult.Success;
         }
 
-Obs.: Essa senha Hash é guardada no banco de dados. Não salvamos a senha que foi criada no formulário pelo usuário por questões de segurança.
+Obs.:A Senha do usuário é encodada pelo algoritimo de Hash e ai sim é persistida no Banco de dados. Não salvamos a senha que foi criada no formulário pelo usuário por questões de segurança.
 
-Com a senha Hash criada, vamos para a próxima instrução.
+Com a senha encodada, vamos para a próxima instrução.
 
         if (result.Succeeded)
         {
@@ -674,6 +674,24 @@ Quando o usuário preenche os campos do formulário de Login, o clica no botão 
 Esse método verifica se os dados passados no formulário de Login batem com algum usuário Registrado. Além dessa simples verificação, o Identity já cria um código verificando o Login de two-factor authentication e se o usuário está bloqueado.
 
 Nessa aplicação não usamos a opção "two-factor authentication", por isso não trataremos nesse exemplo.
+
+---
+
+###### Contextualizando Autenticação de dois fatores
+
+Não falaremos sobre como usar ou implementar a Autenticação de dois fatores nesse Post, portanto vou contextualizar falando do que se trata.
+
+Quando queremos nos autenticar em algum sistema devemos informar nossa senha. A senha portanto é nossa camada de segurança no Login de uma conta.
+
+Hoje em dia, muitos sistemas e sites consideram que apenas uma camada de segurança é algo muito vulnerável, e por isso começaram a utilizar a tão falada Autenticação de dois fatores, que é uma camada adicional de segurança.
+
+O segundo fator pode variar de site para site, e como exemplos mais comuns temos as mensagens SMS enviadas para o celular ou um código enviado para o email do usuário.
+
+Ou seja, para se autenticar o usuário necessita de algo a mais, e não apenas a senha. Dessa forma o acesso e autenticação em contas tornam-se mais seguras, porém não infalíveis.
+
+Exemplos de sites/sistemas que utilizam a Autenticação de dois fatores: Apple (ID Apple), Google (gmail), Microsoft, Amazon, Bancos em geral, etc.
+
+---
 
 Com a verificação do ModelState válida, é executado o método **PasswordSignInAsync** de _signInManager, que foi injetado no construtor por injeção de dependência através da classe **SigninManage.cs**.
 
