@@ -827,8 +827,7 @@ Para facilitar o entendimento e não criarmos mais informações "desnecessária
 ## Conclusao
 
 Como vimos, o Processo de Autenticação e Autorização é algo comum nas aplicações e o Identity surgiu para ajudar a vida dos desenvolvedores, com muitas funcionalidades prontas e seguras.
-Muitos programadores sabem como usar essas funcionalidades, porém não sabem como e o que elas fazem por de baixo dos panos.
-Meu intuito com esse Post foi mostrar como o Identity funciona. Claro que não falei de todo o identity, mas o básico, como o Registro, Login e Autorização.
+Meu intuito com esse Post foi mostrar como o Identity funciona por de baixo dos panos. Claro que não falei de todo o identity, mas o básico, como o Registro, Login e Autorização.
 Muitas outras funcionalidades como Envio de Email e "Two Factor" não foram citados, mas poderão ser citadas em posts futuros.
 Algo que notei durante o desenvolvimento desse post, como era de se prever, é que o código fonte do Identity não é algo simples e trivial. Há muito código, isso muito pela maturidade e quantidades de funcionalidades existentes.
 Enfim, usem e abusem do Identity, além de ser confiável e relativamente fácil de usar é customizavel. E esse será o assunto do próximo Post.
