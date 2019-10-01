@@ -816,7 +816,11 @@ O atributo Authorize herda de Attribute e implementa a interface IAuthorizedata.
 
 Podemos encontrar o código fonte dessa classe no GitHub do ASP.NET Core, no diretório "src/Security/Authorization/Core/src".
 
+---
 
+Observação: Para associar um usuário à uma role é necessário implementar o código do zero, pois o identity não cria essa funcionalidade com o seu Template.
+
+Para facilitar o entendimento e não criarmos mais informações "desnecessária" nesse momento, eu atribui os valores da tabela "UserRoles" direto no banco de dados. Em um futuro post podemos implementar um código para responsabilidade.
 
 ---
 
