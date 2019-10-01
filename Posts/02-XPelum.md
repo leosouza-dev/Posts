@@ -779,6 +779,47 @@ Em nossa aplicação demo, somente usuários com a **Role Admin** terão acesso 
 
 ---
 
+O atributo Authorize herda de Attribute e implementa a interface IAuthorizedata. Possui dois contrutores e três propriedades, uma delas sendo a "Roles".
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    public class AuthorizeAttribute : Attribute, IAuthorizeData
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizeAttribute"/> class. 
+        /// </summary>
+        public AuthorizeAttribute() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizeAttribute"/> class with the specified policy. 
+        /// </summary>
+        /// <param name="policy">The name of the policy to require for authorization.</param>
+        public AuthorizeAttribute(string policy)
+        {
+            Policy = policy;
+        }
+
+        /// <summary>
+        /// Gets or sets the policy name that determines access to the resource.
+        /// </summary>
+        public string Policy { get; set; }
+
+        /// <summary>
+        /// Gets or sets a comma delimited list of roles that are allowed to access the resource.
+        /// </summary>
+        public string Roles { get; set; }
+
+        /// <summary>
+        /// Gets or sets a comma delimited list of schemes from which user information is constructed.
+        /// </summary>
+        public string AuthenticationSchemes { get; set; }
+    }
+
+Podemos encontrar o código fonte dessa classe no GitHub do ASP.NET Core, no diretório "src/Security/Authorization/Core/src".
+
+
+
+---
+
 ## Conclusao
 
 Como vimos, o Processo de Autenticação e Autorização é algo comum nas aplicações e o Identity surgiu para ajudar a vida dos desenvolvedores, com muitas funcionalidades prontas e seguras.
