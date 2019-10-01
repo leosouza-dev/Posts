@@ -739,6 +739,44 @@ Caso alguma dessas verificações seja falsa, a execução do código ira para o
 
 Nesse exemplo, além da autenticação do Identity, também usamos a Autorização trabalhando com as Roles.
 
+Antes de falarmos como funcionam as Roles, vamos relembrar o que foi implementado. Primeiramente vamos analisar as tabelas do banco de dados usadas para essa funcionalidade.
+
+Tabelas de usuário:
+
+![Explicando Roles](imagens/02-xpelum/explicando-role-01.png)
+
+Tabelas de Roles:
+
+![Explicando Roles](imagens/02-xpelum/explicando-role-02.png)
+
+Tabelas de Roles de Usuários
+
+![Explicando Roles](imagens/02-xpelum/explicando-role-03.png)
+
+---
+
+Além das Tabelas do banco de dados, também implementamos algumas linhas de código para que pudessemos usufruir das funcionalidades das Roles.
+
+Na nossa classe de Startup devemos implementar a instrução para utilizarmos a funcionalidade de Autorização do Identity:
+
+    app.UseAuthentication();
+
+Nas controllers ou métodos que quisermos tornar "fechados" para quem não sor autorizado, implementamos a seguinte anotação:
+
+    [Authorize(Roles = "Admin")]
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+Resumendo essa implementação, temos as tabelas de **Users** onde estão a autenicação/registro de todos os usuários. As tabelas de **Roles**, como o é de se presumir, é onde definimos as nossas roles/papeis de usuários em nosso sistema. A tabela **UserRoles** é onde associamos os nossos usuários do sistema com as roles existentes passando os Id's de usuários e roles.
+
+Para que a funcionalidade de Autorização funcione, é necessário adicionar no método configure o UseAuthentication.
+
+E por fim, em cada controller ou método que queiramos tornar "autorizavel", basta apenas anotar com o atributo **Authorize** e informando qual a Role.
+
+Em nossa aplicação demo, somente usuários com a **Role Admin** terão acesso ao método Privacy, quem não a possui e tenta acessar a action e redirecionado para uma pagina de erro - "acesso negado".
+
 ---
 
 ## Conclusao
@@ -749,6 +787,3 @@ Meu intuito com esse Post foi mostrar como o Identity funciona. Claro que não f
 Muitas outras funcionalidades como Envio de Email e "Two Factor" não foram citados, mas poderão ser citadas em posts futuros.
 Algo que notei durante o desenvolvimento desse post, como era de se prever, é que o código fonte do Identity não é algo simples e trivial. Há muito código, isso muito pela maturidade e quantidades de funcionalidades existentes.
 Enfim, usem e abusem do Identity, além de ser confiável e relativamente fácil de usar é customizavel. E esse será o assunto do próximo Post.
-
-
-
